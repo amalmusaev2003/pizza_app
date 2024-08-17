@@ -4,7 +4,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, delete, update, insert
 from typing import Optional
 
-
 class BaseDAO:
     model = None
 
@@ -44,7 +43,10 @@ class BaseDAO:
     @classmethod
     async def update(cls, db: AsyncSession, model_id: uuid.UUID, **data) -> Optional[dict]:
         if not data:
-            return None
+            return {
+                'status_code': status.HTTP_400_BAD_REQUEST,
+                'detail': 'no data provided for update'
+            }
 
         query = (
             update(cls.model) # type: ignore

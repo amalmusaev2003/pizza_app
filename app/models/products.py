@@ -15,6 +15,7 @@ class Products(Base):
     name = Column(String(255), nullable=False)
     description = Column(Text)
     category = Column(Enum(CategoryEnum), nullable=False)
+    composition = Column(Text)
     price = Column(DECIMAL(10, 2), nullable=False)
 
     sizes = relationship("Sizes", back_populates="product")
